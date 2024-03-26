@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/fetchPinterestLink", async (req: Request, res: Response) => {
   try {
-    const pinterestAuthUrl = `https://www.pinterest.com/oauth/?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}&response_type=code&scope=boards:read,pins:read&state=authcode`;
+    const pinterestAuthUrl = `https://www.pinterest.com/oauth/?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}&response_type=code&scope=boards:read,pins:read,pins:write&state=authcode`;
 
     res.redirect(pinterestAuthUrl);
   } catch (error) {
@@ -57,6 +57,8 @@ app.post("/exchangeCodeForAccessToken", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+// Image Upload Api
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
